@@ -1,6 +1,6 @@
 package com.ep.moonshooter.client;
 
-import com.ep.moonshooter.MyGdxGame;
+import com.ep.moonshooter.MoonShooter;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
@@ -14,6 +14,6 @@ public class GwtLauncher extends GwtApplication {
 
 	@Override
 	public ApplicationListener getApplicationListener () {
-		return new MyGdxGame();
+		return new MoonShooter();
 	}
 }
