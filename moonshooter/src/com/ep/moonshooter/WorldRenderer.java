@@ -17,17 +17,26 @@ import com.ep.moonshooter.worlds.World_1;
  *
  */
 public class WorldRenderer {
+	
+	private static final float CAMERA_WIDTH = 10f;
+	private static final float CAMERA_HEIGHT = 7f;
+	private float ppuX;	// pixels per unit on the X axis
+	private float ppuY;	// pixels per unit on the Y axis
 	private World_1 world;
 	private OrthographicCamera cam;
 
 	/** for debug rendering **/
 	ShapeRenderer debugRenderer = new ShapeRenderer();
+	private Object width;
+	private Object height;
+	private boolean debug;
 
 	// TODO: consider interface for Worlds, so different worlds / levels are easy to handle.
-	public WorldRenderer(World_1 world) {
+	public WorldRenderer(World_1 world, boolean debug) {
 		this.world = world;
-		this.cam = new OrthographicCamera(10, 7);
-		this.cam.position.set(5, 3.5f, 0);
+		this.cam = new OrthographicCamera(CAMERA_WIDTH, CAMERA_HEIGHT);
+		this.cam.position.set(CAMERA_WIDTH / 2f, CAMERA_HEIGHT / 2f, 0);
+		this.debug = debug;
 		this.cam.update();
 	}
 
@@ -43,5 +52,13 @@ public class WorldRenderer {
 		debugRenderer.setColor(new Color(0, 1, 0, 1));
 		debugRenderer.rect(x1, y1, rectShip.width, rectShip.height);
 		debugRenderer.end();
+	}
+
+	public void setSize(int width, int height) {
+		this.width = width;
+		this.height = height;
+		ppuX = (float)width / CAMERA_WIDTH;
+		ppuY = (float)height / CAMERA_HEIGHT;
+		
 	}
 }
