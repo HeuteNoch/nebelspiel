@@ -32,7 +32,6 @@ public class WorldRenderer {
 	}
 
 	public void render() {
-		// render blocks
 		debugRenderer.setProjectionMatrix(cam.combined);
 		debugRenderer.begin(ShapeType.Line);
 

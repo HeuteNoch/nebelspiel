@@ -12,22 +12,22 @@ public class SpaceShip {
 		FYLING, SHOOTING, DYING
 	}
 
-	static final float SPEED         = 2f;
-	static final float SIZE          = 0.5f;
-
+	private final float SPEED   = 2f;
+	private final float SIZE_X  = 1.f;
+	private final float SIZE_Y  = 0.5f;
+	
 	// define the attributes of Spaceship. The values of these attributes define
 	// Spaceship’s state at any given time.
-	// TODO: getters and setters?
-	Vector2 position 	 = new Vector2();
-	Vector2 acceleration = new Vector2();
-	Vector2 velocity     = new Vector2();
-	Rectangle bounds     = new Rectangle(); // for collision
-	State state          = State.FYLING;
+	private Vector2 position 	 = new Vector2();
+	private Vector2 acceleration = new Vector2();
+	private Vector2 velocity     = new Vector2();
+	private Rectangle bounds     = new Rectangle(); // for collision
+	private State state          = State.FYLING;
 
 	public SpaceShip(Vector2 position) {
 		this.position = position;
-		this.bounds.height = SIZE;
-		this.bounds.width = SIZE;
+		this.bounds.height = SIZE_Y;
+		this.bounds.width = SIZE_X;
 	}
 	
 	public Rectangle getBounds(){
@@ -35,7 +35,7 @@ public class SpaceShip {
 	}
 	
 	public Vector2 getPosition() {
-		return position;
+		return this.position;
 	}
 	
 }
