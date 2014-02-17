@@ -4,7 +4,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.ep.moonshooter.actors.SpaceShip;
 /**
  * A prototype game level
- * @author eliyo
  *
  */
 public class World_1 {
