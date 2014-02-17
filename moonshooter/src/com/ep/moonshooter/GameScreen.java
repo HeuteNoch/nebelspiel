@@ -10,8 +10,8 @@ import com.ep.moonshooter.worlds.World_1;
 /**
  * For the different game screen states. GameScreen implements the Screen
  * interface which is very much like an ApplicationListener but it has 2
- * important methods added. show() – this is called when the main game makes
- * this screen active hide() – this is called when the main game makes another
+ * important methods added. show() ï¿½ this is called when the main game makes
+ * this screen active hide() ï¿½ this is called when the main game makes another
  * screen active
  * 
  */
