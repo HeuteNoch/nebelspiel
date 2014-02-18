@@ -46,6 +46,10 @@ public class WorldController {
 	public void downPressed() {
 		keys.put(Keys.DOWN, true);
 	}
+	
+	public void firePressed() {
+		keys.put(Keys.FIRE, true);
+	}
 
 	public void leftReleased() {
 		keys.put(Keys.LEFT, false);
@@ -74,8 +78,8 @@ public class WorldController {
 	}
 
 	/** Change Ships's state and parameters based on input controls **/
-	// TODO: input processing is buggy when pressing up and right for example 
 	private void processInput() {
+		
 		
 		if (keys.get(Keys.LEFT)) {
 			// left is pressed
@@ -95,17 +99,25 @@ public class WorldController {
 			ship.setState(State.FYLING);
 			ship.getVelocity().y = -ship.getSpeed();
 		}
-		// need to check if both or none direction are pressed, then ship is idle
-		if ((keys.get(Keys.LEFT) && keys.get(Keys.RIGHT))
-				|| ( !keys.get(Keys.LEFT) && !keys.get(Keys.RIGHT) 
-						&& !keys.get(Keys.UP) && !keys.get(Keys.DOWN) )) {
-			ship.setState(State.IDLING);
-			// acceleration is 0 on the x
-			ship.getAcceleration().x = 0;
-			ship.getAcceleration().y = 0;
-			// horizontal speed is 0
+		
+		if(!keys.get(Keys.LEFT) && !keys.get(Keys.RIGHT)) {
 			ship.getVelocity().x = 0;
+		}
+		
+		if(!keys.get(Keys.UP) && !keys.get(Keys.DOWN)) {
 			ship.getVelocity().y = 0;
 		}
+		
+		if (keys.get(Keys.FIRE)) {
+			ship.setState(State.SHOOTING);
+			return;
+		}
+		
+		// if no key is pressed, set state to idle
+		if(!keys.containsValue(true)) {
+			ship.setState(State.IDLING);
+		}
+		
+
 	}
 }

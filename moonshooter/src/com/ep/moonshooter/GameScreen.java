@@ -25,6 +25,7 @@ public class GameScreen implements Screen, InputProcessor {
 	
 	@Override
 	// is called for every frame of the game
+	// delta is the time in seconds since the last render
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
@@ -83,6 +84,8 @@ public class GameScreen implements Screen, InputProcessor {
 			controller.upPressed();
 		if (keycode == Keys.DOWN)
 			controller.downPressed();
+		if (keycode == Keys.A)
+			controller.firePressed();
 		return false;
 	}
 
@@ -96,6 +99,8 @@ public class GameScreen implements Screen, InputProcessor {
 			controller.upReleased();
 		if (keycode == Keys.DOWN)
 			controller.downReleased();
+		if (keycode == Keys.A)
+			controller.fireReleased();
 		return true;
 	}
 
