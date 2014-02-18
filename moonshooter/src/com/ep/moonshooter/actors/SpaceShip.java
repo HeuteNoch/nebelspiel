@@ -17,7 +17,7 @@ public class SpaceShip {
 	private float SIZE_Y  = 0.5f;
 	
 	// define the attributes of Spaceship. The values of these attributes define
-	// Spaceship’s state at any given time.
+	// Spaceshipï¿½s state at any given time.
 	private Vector2 position 	 = new Vector2();
 	private Vector2 acceleration = new Vector2();
 	private Vector2 velocity     = new Vector2();
