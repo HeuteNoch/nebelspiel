@@ -21,9 +21,9 @@ public class SpaceShip {
 		FLYING, FLYING_FF, FLYING_SL, FLYING_UP, FLYING_DWN,  SHOOTING, IDLING, DYING
 	}
 
-	private float speed   = 2f;
-	private float SIZE_X  = 1.f;
-	private float SIZE_Y  = 0.5f;
+	private float speed   = 3f;
+	private float SIZE_X  = 0.8f;
+	private float SIZE_Y  = 0.4f;
 	
 	// define the attributes of Spaceship. The values of these attributes define
 	// Spaceships state at any given time.

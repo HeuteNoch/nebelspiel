@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
 import com.ep.moonshooter.actors.SpaceShip;
+import com.ep.moonshooter.worlds.PlanetBlock;
 import com.ep.moonshooter.worlds.World_1;
 
 /**
@@ -43,6 +44,18 @@ public class WorldRenderer {
 	public void render() {
 		debugRenderer.setProjectionMatrix(cam.combined);
 		debugRenderer.begin(ShapeType.Line);
+		
+		// render floor aka.PlanetBlocks
+		for (PlanetBlock block : world.getBlocks()) {
+			Rectangle rect = block.getBounds();
+			float x1 = block.getPosition().x + rect.x;
+			float y1 = block.getPosition().y + rect.y;
+			debugRenderer.setColor(Color.LIGHT_GRAY);
+			debugRenderer.rect(x1, y1, rect.width, rect.height);
+		}
+
+		
+		
 
 		// render Spaceship
 		SpaceShip ship = world.getSpaceShip();
