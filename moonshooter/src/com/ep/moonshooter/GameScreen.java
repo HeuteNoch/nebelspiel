@@ -1,5 +1,6 @@
 package com.ep.moonshooter;
 
+import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
@@ -23,10 +24,14 @@ public class GameScreen implements Screen, InputProcessor {
 	private int width;
 	private int height;
 	
+	
+	/**
+	 * Called when the screen should render itself.
+	 * @param delta The time in seconds since the last render.
+	 * */
 	@Override
-	// is called for every frame of the game
-	// delta is the time in seconds since the last render
 	public void render(float delta) {
+		
 		Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		controller.update(delta);
@@ -68,6 +73,10 @@ public class GameScreen implements Screen, InputProcessor {
 
 	}
 
+	/**
+	 *  method is called in the end of the game.
+	 *  do some cleanup here
+	 */
 	@Override
 	public void dispose() {
 		Gdx.input.setInputProcessor(null);

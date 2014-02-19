@@ -83,20 +83,20 @@ public class WorldController {
 		
 		if (keys.get(Keys.LEFT)) {
 			// left is pressed
-			ship.setState(State.FYLING);
+			ship.setState(State.FLYING);
 			ship.getVelocity().x = -ship.getSpeed();
 		}
 		if (keys.get(Keys.RIGHT)) {
 			// right is pressed
-			ship.setState(State.FYLING);
+			ship.setState(State.FLYING);
 			ship.getVelocity().x = ship.getSpeed();
 		}
 		if (keys.get(Keys.UP)) {
-			ship.setState(State.FYLING);
+			ship.setState(State.FLYING);
 			ship.getVelocity().y = ship.getSpeed();
 		}
 		if (keys.get(Keys.DOWN)) {
-			ship.setState(State.FYLING);
+			ship.setState(State.FLYING);
 			ship.getVelocity().y = -ship.getSpeed();
 		}
 		

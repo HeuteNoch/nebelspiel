@@ -8,8 +8,17 @@ import com.badlogic.gdx.math.Vector2;
  */
 public class SpaceShip {
 
+	/**
+	 * enum of stats of the SpaceShip:
+	 * FLYING --> idle
+	 * FLYING_FF  = FLYING FAST FORWARD --> like, when the user hits the "right"-key
+	 * FLYING_SL  = FLYING SLOW         --> "left"-key
+	 * FLYING_UP  = FLYING UP           --> "up"-key
+	 * FLYING_DWN = FLYING DOWN         --> "down"-key"
+	 *
+	 */
 	public enum State {
-		FYLING, SHOOTING, IDLING, DYING
+		FLYING, FLYING_FF, FLYING_SL, FLYING_UP, FLYING_DWN,  SHOOTING, IDLING, DYING
 	}
 
 	private float speed   = 2f;
@@ -23,7 +32,7 @@ public class SpaceShip {
 	private Vector2 velocity     = new Vector2();
 
 	private Rectangle bounds     = new Rectangle(); // for collision
-	private State state          = State.FYLING;
+	private State state          = State.FLYING;
 
 	public SpaceShip(Vector2 position) {
 		this.position = position;
