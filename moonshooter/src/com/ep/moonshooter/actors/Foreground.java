@@ -14,6 +14,8 @@ public class Foreground {
 	private Vector2 	position = new Vector2();
 	private Rectangle 	bounds = new Rectangle();
 	private Vector2 	velocity = new Vector2();
+	
+	private float speed = 2; 
 	/**
 	 * 
 	 * @param pos is the position where the block takes place in the world
@@ -49,6 +51,14 @@ public class Foreground {
 	
 	public void setVelocity(Vector2 velocity) {
 		this.velocity = velocity;
+	}
+
+	public float getSpeed() {
+		return speed;
+	}
+	
+	public void setSpeed(float speed) {
+		this.speed = speed;
 	}
 
 }

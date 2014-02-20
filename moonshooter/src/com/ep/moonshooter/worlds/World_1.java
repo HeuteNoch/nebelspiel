@@ -6,8 +6,8 @@ import com.ep.moonshooter.actors.Foreground;
 import com.ep.moonshooter.actors.SpaceShip;
 /**
  * A prototype game level
- * TODO: consider this architecture: World has levels. And the level holds
- * all actors.
+ * TODO: consider this architecture: Game has worlds. Worlds has levels.
+ * And the level holds all actors.
  */
 public class World_1 {
 
@@ -23,10 +23,12 @@ public class World_1 {
 		spaceShip = new SpaceShip(new Vector2(0.4f, 4));
 		
 		// two bottom lines represent for now the planet on which the ship is flying
-		for (int i = 0; i < 10; i++) {
+		// TODO: check what it the best method for drawing this
+		// TODO: do not "RENDER" elements that are not on screen. (Maybe this engine is already optimized in that way)
+		for (int i = 0; i < 1000; i++) {
 			foreground.add(new Foreground(new Vector2(i, 0)));
 			if(i % 3 == 0) 
-				foreground.add(new Foreground(new Vector2(i, 1)));
+				foreground.add(new Foreground(new Vector2(i, (float) (Math.random() * 1)  )));
 		}
 	}
 

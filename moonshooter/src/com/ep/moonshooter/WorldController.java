@@ -3,6 +3,8 @@ package com.ep.moonshooter;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.badlogic.gdx.utils.Array;
+import com.ep.moonshooter.actors.Foreground;
 import com.ep.moonshooter.actors.SpaceShip;
 import com.ep.moonshooter.actors.SpaceShip.State;
 import com.ep.moonshooter.worlds.World_1;
@@ -15,6 +17,9 @@ public class WorldController {
 
 	private World_1 world;
 	private SpaceShip ship;
+	// TODO: consider to hold it somewhere else. But i guess its ok here. Controller should control all
+	// moving actors in game.
+	private Array<Foreground> foregrounds;
 
 	static Map<Keys, Boolean> keys = new HashMap<WorldController.Keys, Boolean>();
 	static {
@@ -28,6 +33,7 @@ public class WorldController {
 	public WorldController(World_1 world) {
 		this.world = world;
 		this.ship = world.getSpaceShip();
+		this.foregrounds = world.getForeground();
 	}
 
 	// ** Key presses and touches **************** //
@@ -74,7 +80,18 @@ public class WorldController {
 	/** The main update method **/
 	public void update(float delta) {
 		processInput();
+		processForeground();
 		ship.update(delta);
+		for (Foreground f : foregrounds) {
+			f.update(delta);
+		}
+	}
+
+	private void processForeground() {
+		for (Foreground f : foregrounds) {
+			f.getVelocity().x = -f.getSpeed();	
+		}
+			
 	}
 
 	/** Change Ships's state and parameters based on input controls **/
