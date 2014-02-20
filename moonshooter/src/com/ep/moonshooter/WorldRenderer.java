@@ -5,8 +5,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
+import com.ep.moonshooter.actors.Foreground;
 import com.ep.moonshooter.actors.SpaceShip;
-import com.ep.moonshooter.worlds.PlanetBlock;
 import com.ep.moonshooter.worlds.World_1;
 
 /**
@@ -45,8 +45,8 @@ public class WorldRenderer {
 		debugRenderer.setProjectionMatrix(cam.combined);
 		debugRenderer.begin(ShapeType.Line);
 		
-		// render floor aka.PlanetBlocks
-		for (PlanetBlock block : world.getBlocks()) {
+		// render games foreground
+		for (Foreground block : world.getForeground()) {
 			Rectangle rect = block.getBounds();
 			float x1 = block.getPosition().x + rect.x;
 			float y1 = block.getPosition().y + rect.y;
@@ -54,15 +54,12 @@ public class WorldRenderer {
 			debugRenderer.rect(x1, y1, rect.width, rect.height);
 		}
 
-		
-		
-
 		// render Spaceship
 		SpaceShip ship = world.getSpaceShip();
 		Rectangle rectShip = ship.getBounds();
 		float x1 = ship.getPosition().x + rectShip.x;
 		float y1 = ship.getPosition().y + rectShip.y;
-		debugRenderer.setColor(new Color(0, 1, 0, 1));
+		debugRenderer.setColor(Color.GREEN);
 		debugRenderer.rect(x1, y1, rectShip.width, rectShip.height);
 		debugRenderer.end();
 	}

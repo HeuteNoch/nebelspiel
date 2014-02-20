@@ -1,6 +1,5 @@
 package com.ep.moonshooter;
 
-import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
@@ -46,6 +45,11 @@ public class GameScreen implements Screen, InputProcessor {
 		Gdx.input.setInputProcessor(this);
 	}
 
+	/**
+	 * Called every time the drawable surface is resized.
+	 * This gives us the chance to rearrange the bits before we go on to start the play. 
+	 * It happens when the window (if the game runs in one) is resized for example.
+	 */
 	@Override
 	public void resize(int width, int height) {
 		renderer.setSize(width, height);
