@@ -11,7 +11,7 @@ import com.ep.moonshooter.worlds.World_1;
  * GameScreen implements the Screen interface which is very much like an 
  * ApplicationListener but it has two important methods added. show()this 
  * is called when the main games makes this screen active hide() this is
- * called when the main game game makes another screen active.
+ * called when the main game makes another screen active.
  */
 public class GameScreen implements Screen, InputProcessor {
 

@@ -52,7 +52,7 @@ public class SpaceShip {
 	 * Returns the actual position of the ship. 
 	 * For collision handling use the position and bounds of the ship
 	 * 
-	 * @return
+	 * @return the position of the ship as a vector
 	 */
 	public Vector2 getPosition() {
 		return this.position;
