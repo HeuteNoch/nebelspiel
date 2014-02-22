@@ -1,4 +1,4 @@
-package com.ep.moonshooter;
+package com.ep.moonshooter.renderer;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;

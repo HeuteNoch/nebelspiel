@@ -5,11 +5,13 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
+import com.ep.moonshooter.controller.WorldController;
+import com.ep.moonshooter.renderer.WorldRenderer;
 import com.ep.moonshooter.worlds.World_1;
 
 /**
  * GameScreen implements the Screen interface which is very much like an 
- * ApplicationListener but it has two important methods added. show()this 
+ * ApplicationListener but it has two important methods added. show() this 
  * is called when the main games makes this screen active hide() this is
  * called when the main game makes another screen active.
  */

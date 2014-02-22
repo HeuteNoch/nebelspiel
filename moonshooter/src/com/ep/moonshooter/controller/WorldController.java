@@ -1,4 +1,4 @@
-package com.ep.moonshooter;
+package com.ep.moonshooter.controller;
 
 import java.util.HashMap;
 import java.util.Map;
