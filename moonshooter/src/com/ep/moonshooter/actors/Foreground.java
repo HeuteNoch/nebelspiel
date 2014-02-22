@@ -12,12 +12,12 @@ public class Foreground {
 	static final float SIZE = 1.18f;
 	
 	private Vector2 	position = new Vector2();
-	private Rectangle 	bounds = new Rectangle();
+	private Rectangle 	bounds   = new Rectangle();
 	private Vector2 	velocity = new Vector2();
 	
 	private float speed = 2; 
+	
 	/**
-	 * 
 	 * @param pos is the position where the block takes place in the world
 	 */
 	public Foreground(Vector2 pos) {
@@ -27,7 +27,8 @@ public class Foreground {
 	}
 	
 	public void update(float delta) {
-		position.add(velocity.cpy().scl(delta));
+		Vector2 distance = velocity.cpy().scl(delta);
+		position.add(distance);
 	}
 	
 	public Vector2 getPosition() {

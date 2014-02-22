@@ -23,7 +23,7 @@ public class World_1 {
 		spaceShip = new SpaceShip(new Vector2(0.4f, 4));
 		
 		// two bottom lines represent for now the planet on which the ship is flying
-		// TODO: check what it the best method for drawing this
+		// TODO: check what is the best method for drawing this
 		// TODO: do not "RENDER" elements that are not on screen. (Maybe this engine is already optimized in that way)
 		for (int i = 0; i < 1000; i++) {
 			foreground.add(new Foreground(new Vector2(i, 0)));
