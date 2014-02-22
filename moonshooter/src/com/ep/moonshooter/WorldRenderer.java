@@ -35,6 +35,10 @@ public class WorldRenderer {
 	// TODO: consider interface for Worlds, so different worlds / levels are easy to handle.
 	public WorldRenderer(World_1 world, boolean debug) {
 		this.world = world;
+		
+		// Create the camera with a view-port of 10 units wide and 7 units tall.
+		// This means that filling up the screen with unit blocks (width = height = 1)
+		// will result in showing 10 boxes on the X axis and 7 on the Y.
 		this.cam = new OrthographicCamera(CAMERA_WIDTH, CAMERA_HEIGHT);
 		this.cam.position.set(CAMERA_WIDTH / 2f, CAMERA_HEIGHT / 2f, 0);
 		this.debug = debug;
@@ -43,7 +47,7 @@ public class WorldRenderer {
 
 	public void render() {
 		debugRenderer.setProjectionMatrix(cam.combined);
-		debugRenderer.begin(ShapeType.Line);
+		debugRenderer.begin(ShapeType.Filled);
 		
 		// render games foreground
 		for (Foreground block : world.getForeground()) {
