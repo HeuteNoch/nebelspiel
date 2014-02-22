@@ -1,7 +1,10 @@
 package com.ep.moonshooter.renderer;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
@@ -21,15 +24,17 @@ public class WorldRenderer {
 	
 	private static final float CAMERA_WIDTH = 10f;
 	private static final float CAMERA_HEIGHT = 7f;
-	private float ppuX;	// pixels per unit on the X axis
-	private float ppuY;	// pixels per unit on the Y axis
+	
 	private World_1 world;
 	private OrthographicCamera cam;
 
 	/** for debug rendering **/
 	ShapeRenderer debugRenderer = new ShapeRenderer();
-	private Object width;
-	private Object height;
+	private Texture shipTexture;
+	private Texture foregroundTexture;
+	
+	private SpriteBatch spriteBatch;
+
 	private boolean debug;
 
 	// TODO: consider interface for Worlds, so different worlds / levels are easy to handle.
@@ -41,13 +46,45 @@ public class WorldRenderer {
 		// will result in showing 10 boxes on the X axis and 7 on the Y.
 		this.cam = new OrthographicCamera(CAMERA_WIDTH, CAMERA_HEIGHT);
 		this.cam.position.set(CAMERA_WIDTH / 2f, CAMERA_HEIGHT / 2f, 0);
-		this.debug = debug;
 		this.cam.update();
+		this.debug = debug;
+		spriteBatch = new SpriteBatch();
+		loadTextures();
+	}
+	
+	private void loadTextures() {
+		shipTexture = new  Texture(Gdx.files.internal("images/spaceship.png"));
+		foregroundTexture = new Texture(Gdx.files.internal("images/foreground-moon.jpg"));
 	}
 
 	public void render() {
+		spriteBatch.begin();
+		spriteBatch.setProjectionMatrix(cam.combined);
+		drawForeground();
+		drawSpaceship();
+		spriteBatch.end();
+		if (debug)
+			drawDebug();
+	}
+	
+	private void drawSpaceship() {
+		SpaceShip s = world.getSpaceShip();
+		spriteBatch.draw(shipTexture, s.getPosition().x, s.getPosition().y, s.getBounds().width, s.getBounds().height);
+		
+	}
+
+	private void drawForeground() {
+		for (Foreground b : world.getForeground()) {
+			spriteBatch.draw(foregroundTexture, b.getPosition().x, b.getPosition().y, b.getBounds().width, b.getBounds().height);
+		}
+	}
+	
+	/**
+	 * only called when in debug mode. To see the actual rectangles
+	 */
+	public void drawDebug() {
 		debugRenderer.setProjectionMatrix(cam.combined);
-		debugRenderer.begin(ShapeType.Filled);
+		debugRenderer.begin(ShapeType.Line);
 		
 		// render games foreground
 		for (Foreground block : world.getForeground()) {
@@ -66,13 +103,5 @@ public class WorldRenderer {
 		debugRenderer.setColor(Color.GREEN);
 		debugRenderer.rect(x1, y1, rectShip.width, rectShip.height);
 		debugRenderer.end();
-	}
-
-	public void setSize(int width, int height) {
-		this.width = width;
-		this.height = height;
-		ppuX = (float)width / CAMERA_WIDTH;
-		ppuY = (float)height / CAMERA_HEIGHT;
-		
 	}
 }

@@ -20,9 +20,6 @@ public class GameScreen implements Screen, InputProcessor {
 	private World_1 world_1;
 	private WorldRenderer renderer;
 	private WorldController	controller;
-	private int width;
-	private int height;
-	
 	
 	/**
 	 * Called when the screen should render itself.
@@ -30,7 +27,6 @@ public class GameScreen implements Screen, InputProcessor {
 	 * */
 	@Override
 	public void render(float delta) {
-		
 		Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		controller.update(delta);
@@ -40,22 +36,18 @@ public class GameScreen implements Screen, InputProcessor {
 	@Override
 	public void show() {
 		world_1 = new World_1();
-		renderer = new WorldRenderer(world_1, true);
+		renderer = new WorldRenderer(world_1, false);
 		controller = new WorldController(world_1);
 		Gdx.input.setInputProcessor(this);
 	}
 
 	/**
 	 * Called every time the drawable surface is resized.
-	 * This gives us the chance to rearrange the bits before we go on to start the play. 
-	 * It happens when the window (if the game runs in one) is resized for example.
 	 */
 	@Override
 	public void resize(int width, int height) {
-		renderer.setSize(width, height);
-		this.width = width;
-		this.height = height;
-
+		Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
+		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 	}
 
 

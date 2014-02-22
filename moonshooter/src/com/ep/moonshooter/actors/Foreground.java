@@ -61,5 +61,4 @@ public class Foreground {
 	public void setSpeed(float speed) {
 		this.speed = speed;
 	}
-
 }
