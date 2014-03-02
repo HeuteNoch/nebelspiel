@@ -1,140 +1,66 @@
 package com.ep.moonshooter.controller;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
 
 import com.badlogic.gdx.utils.Array;
+import com.ep.moonshooter.actors.Background;
+import com.ep.moonshooter.actors.Enemy;
 import com.ep.moonshooter.actors.Foreground;
-import com.ep.moonshooter.actors.SpaceShip;
-import com.ep.moonshooter.actors.SpaceShip.State;
 import com.ep.moonshooter.worlds.World_1;
 
 public class WorldController {
 
-	enum Keys {
-		LEFT, RIGHT, UP, DOWN, FIRE
-	}
-
 	private World_1 world;
-	private SpaceShip ship;
-	// TODO: consider to hold it somewhere else. But i guess its ok here. Controller should control all
-	// moving actors in game.
+	
 	private Array<Foreground> foregrounds;
-
-	static Map<Keys, Boolean> keys = new HashMap<WorldController.Keys, Boolean>();
-	static {
-		keys.put(Keys.LEFT, false);
-		keys.put(Keys.RIGHT, false);
-		keys.put(Keys.UP, false);
-		keys.put(Keys.DOWN, false);
-		keys.put(Keys.FIRE, false);
-	};
+	private Background background;
+	private ArrayList<Enemy> enemies;
 
 	public WorldController(World_1 world) {
 		this.world = world;
-		this.ship = world.getSpaceShip();
 		this.foregrounds = world.getForeground();
-	}
-
-	// ** Key presses and touches **************** //
-	public void leftPressed() {
-		keys.put(Keys.LEFT, true);
-	}
-
-	public void rightPressed() {
-		keys.put(Keys.RIGHT, true);
-	}
-
-	public void upPressed() {
-		keys.put(Keys.UP, true);
-	}
-
-	public void downPressed() {
-		keys.put(Keys.DOWN, true);
-	}
-	
-	public void firePressed() {
-		keys.put(Keys.FIRE, true);
-	}
-
-	public void leftReleased() {
-		keys.put(Keys.LEFT, false);
-	}
-
-	public void rightReleased() {
-		keys.put(Keys.RIGHT, false);
-	}
-
-	public void upReleased() {
-		keys.put(Keys.UP, false);
-	}
-
-	public void downReleased() {
-		keys.put(Keys.DOWN, false);
-	}
-
-	public void fireReleased() {
-		keys.put(Keys.FIRE, false);
+		this.background = world.getBackground();
+		this.enemies = world.getEnemies(false);
 	}
 
 	/** The main update method **/
 	public void update(float delta) {
-		processInput();
 		processForeground();
-		ship.update(delta);
+		processBackground();
+		processEnemies();
+		
 		for (Foreground f : foregrounds) {
 			f.update(delta);
 		}
+		
+		for (Enemy e : enemies) {
+			e.update(delta);
+		}
+		
+		background.update(delta);
 	}
-
+	
+	private void processEnemies() {
+		boolean enemySquadPassed = true;
+		for (Enemy e : enemies) {
+			e.getVelocity().x = -e.getSpeed();
+			enemySquadPassed = (e.getPosition().x < 0) && enemySquadPassed;
+		}
+		if (enemySquadPassed)
+			this.enemies = world.getEnemies(true);
+			
+	}
+	
+	private void processBackground() {
+		background.getVelocity().x = -background.getSpeed();
+	}
+	
 	private void processForeground() {
 		for (Foreground f : foregrounds) {
 			f.getVelocity().x = -f.getSpeed();	
 		}
-			
+		
 	}
 
-	/** Change Ships's state and parameters based on input controls **/
-	private void processInput() {
-		
-		
-		if (keys.get(Keys.LEFT)) {
-			// left is pressed
-			ship.setState(State.FLYING);
-			ship.getVelocity().x = -ship.getSpeed();
-		}
-		if (keys.get(Keys.RIGHT)) {
-			// right is pressed
-			ship.setState(State.FLYING);
-			ship.getVelocity().x = ship.getSpeed();
-		}
-		if (keys.get(Keys.UP)) {
-			ship.setState(State.FLYING);
-			ship.getVelocity().y = ship.getSpeed();
-		}
-		if (keys.get(Keys.DOWN)) {
-			ship.setState(State.FLYING);
-			ship.getVelocity().y = -ship.getSpeed();
-		}
-		
-		if(!keys.get(Keys.LEFT) && !keys.get(Keys.RIGHT)) {
-			ship.getVelocity().x = 0;
-		}
-		
-		if(!keys.get(Keys.UP) && !keys.get(Keys.DOWN)) {
-			ship.getVelocity().y = 0;
-		}
-		
-		if (keys.get(Keys.FIRE)) {
-			ship.setState(State.SHOOTING);
-			return;
-		}
-		
-		// if no key is pressed, set state to idle
-		if(!keys.containsValue(true)) {
-			ship.setState(State.IDLING);
-		}
-		
 
-	}
 }

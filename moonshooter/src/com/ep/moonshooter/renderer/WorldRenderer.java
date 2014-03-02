@@ -1,16 +1,20 @@
 package com.ep.moonshooter.renderer;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-import com.badlogic.gdx.math.Rectangle;
-import com.ep.moonshooter.actors.Foreground;
-import com.ep.moonshooter.actors.SpaceShip;
+import com.ep.moonshooter.actors.Enemy;
 import com.ep.moonshooter.worlds.World_1;
+import com.ep.moonshooter.actors.SpaceShip;
+import com.ep.moonshooter.actors.Background;
+import com.ep.moonshooter.actors.Foreground;
 
 /**
  * The WorldRenderer has only one purpose. To take the current state of the world
@@ -31,7 +35,9 @@ public class WorldRenderer {
 	/** for debug rendering **/
 	ShapeRenderer debugRenderer = new ShapeRenderer();
 	private Texture shipTexture;
+	private Texture enemyTexture;
 	private Texture foregroundTexture;
+	private Texture backgroundTexture;
 	
 	private SpriteBatch spriteBatch;
 
@@ -55,18 +61,35 @@ public class WorldRenderer {
 	private void loadTextures() {
 		shipTexture = new  Texture(Gdx.files.internal("images/spaceship.png"));
 		foregroundTexture = new Texture(Gdx.files.internal("images/foreground-moon.jpg"));
+		backgroundTexture = new Texture(Gdx.files.internal("images/background.jpg"));
+		enemyTexture = new Texture(Gdx.files.internal("images/protoEnemy.png"));
 	}
 
 	public void render() {
 		spriteBatch.begin();
 		spriteBatch.setProjectionMatrix(cam.combined);
+		drawBackground();
 		drawForeground();
 		drawSpaceship();
+		drawEnemies();
 		spriteBatch.end();
 		if (debug)
 			drawDebug();
 	}
 	
+	private void drawEnemies() {
+		ArrayList<Enemy> enemies = world.getEnemies(false);
+		for (Enemy e : enemies) {
+			spriteBatch.draw(enemyTexture ,e.getPosition().x, e.getPosition().y, e.getBounds().width, e.getBounds().height);
+		}
+		
+	}
+
+	private void drawBackground() {
+		Background b = world.getBackground();
+		spriteBatch.draw(backgroundTexture,b.getPosition().x, b.getPosition().y, b.getBounds().width, b.getBounds().height);
+	}
+
 	private void drawSpaceship() {
 		SpaceShip s = world.getSpaceShip();
 		spriteBatch.draw(shipTexture, s.getPosition().x, s.getPosition().y, s.getBounds().width, s.getBounds().height);

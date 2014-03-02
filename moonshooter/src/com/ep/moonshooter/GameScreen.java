@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
+import com.ep.moonshooter.controller.ShipController;
 import com.ep.moonshooter.controller.WorldController;
 import com.ep.moonshooter.renderer.WorldRenderer;
 import com.ep.moonshooter.worlds.World_1;
@@ -17,9 +18,11 @@ import com.ep.moonshooter.worlds.World_1;
  */
 public class GameScreen implements Screen, InputProcessor {
 
+	// TODO: add possibility to change world via setters
 	private World_1 world_1;
-	private WorldRenderer renderer;
-	private WorldController	controller;
+	private WorldRenderer worldRenderer;
+	private WorldController	worldController;
+	private ShipController shipController;
 	
 	/**
 	 * Called when the screen should render itself.
@@ -29,15 +32,25 @@ public class GameScreen implements Screen, InputProcessor {
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-		controller.update(delta);
-		renderer.render();
+		if (world_1.isOver()) {
+			this.world_1 = setNextWorld(); // TODO: either world or level
+		}
+		worldController.update(delta);
+		shipController.update(delta);
+		worldRenderer.render();
 	}
 	
+	private World_1 setNextWorld() {
+		return new World_1(); // TODO add more worlds ;)
+	}
+
 	@Override
 	public void show() {
 		world_1 = new World_1();
-		renderer = new WorldRenderer(world_1, false);
-		controller = new WorldController(world_1);
+		worldRenderer = new WorldRenderer(world_1, false);
+		worldController = new WorldController(world_1);
+		shipController = new ShipController(world_1);
+		
 		Gdx.input.setInputProcessor(this);
 	}
 
@@ -82,30 +95,30 @@ public class GameScreen implements Screen, InputProcessor {
 	@Override
 	public boolean keyDown(int keycode) {
 		if (keycode == Keys.LEFT)
-			controller.leftPressed();
+			shipController.leftPressed();
 		if (keycode == Keys.RIGHT)
-			controller.rightPressed();
+			shipController.rightPressed();
 		if (keycode == Keys.UP)
-			controller.upPressed();
+			shipController.upPressed();
 		if (keycode == Keys.DOWN)
-			controller.downPressed();
+			shipController.downPressed();
 		if (keycode == Keys.A)
-			controller.firePressed();
+			shipController.firePressed();
 		return false;
 	}
 
 	@Override
 	public boolean keyUp(int keycode) {
 		if (keycode == Keys.LEFT)
-			controller.leftReleased();
+			shipController.leftReleased();
 		if (keycode == Keys.RIGHT)
-			controller.rightReleased();
+			shipController.rightReleased();
 		if (keycode == Keys.UP)
-			controller.upReleased();
+			shipController.upReleased();
 		if (keycode == Keys.DOWN)
-			controller.downReleased();
+			shipController.downReleased();
 		if (keycode == Keys.A)
-			controller.fireReleased();
+			shipController.fireReleased();
 		return true;
 	}
 
